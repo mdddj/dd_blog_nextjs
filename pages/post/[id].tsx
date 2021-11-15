@@ -7,6 +7,7 @@ import React from "react";
 import {BlogData} from "dd_server_api_web/apis/model/result/BlogPushNewResultData";
 import {GetServerSideProps, GetServerSidePropsContext, PreviewData} from "next";
 import {ParsedUrlQuery} from "querystring";
+import Highlight from 'react-highlight'
 
 
 const Blog: React.FC<{ blog: BlogData }> = ({blog}) => {
@@ -29,7 +30,16 @@ const Blog: React.FC<{ blog: BlogData }> = ({blog}) => {
             {/*博客正文内容*/}
             <div className={'markdown-body'}>
                 {/* eslint-disable-next-line react/no-children-prop */}
-                <ReactMarkdown children={blog.content} remarkPlugins={[remarkGfm]}/>
+                <ReactMarkdown children={blog.content} remarkPlugins={[remarkGfm]} components={{
+                    code({node, inline, className, children, ...props}) {
+                        const match = /language-(\w+)/.exec(className || '')
+                       return <div>
+                           <Highlight language={match ? match : [1]}>
+                               {String(children).replace(/\n$/, '')}
+                           </Highlight>
+                       </div>
+                    }
+                }} />
             </div>
         </article>
     </Container>
