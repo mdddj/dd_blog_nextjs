@@ -11,8 +11,22 @@ import {ParsedUrlQuery} from "querystring";
 
 const Blog: React.FC<{ blog: BlogData }> = ({blog}) => {
     return <Container maxW={'container.md'}>
-        <article>
-            <Heading>{blog.title}</Heading>
+        <article className={'blog-article'}>
+            
+            
+            {/*博客标题*/}
+            <Heading className={'blog-title'}>{blog.title}</Heading>
+            
+            
+            {/*博客元数据，显示作者信息和发布日期，博客分类和返回的按钮*/}
+            <div className={'blog-meta'}>
+                <div className={'mate'}>
+                    {blog.author},<time>{blog.dateString}</time> • <span className={'tag'}>{blog.category.name}</span>
+                </div>
+                <a>返回</a>
+            </div>
+            
+            {/*博客正文内容*/}
             <div className={'markdown-body'}>
                 {/* eslint-disable-next-line react/no-children-prop */}
                 <ReactMarkdown children={blog.content} remarkPlugins={[remarkGfm]}/>
@@ -21,10 +35,7 @@ const Blog: React.FC<{ blog: BlogData }> = ({blog}) => {
     </Container>
 }
 
-class CustomParsedUrlQuery implements ParsedUrlQuery {
-    [key: string]: string | string[] | undefined;
-}
-
+// 页面启动加载服务器数据
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
     const params = context.params ?? {}
     const id = params.id as any;
