@@ -8,9 +8,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/gatsby-plugin": "^2.0.2",
+    "@chakra-ui/react": "^1.7.1",
+    "@emotion/react": "11",
+    "@emotion/styled": "11",
+    "dd_server_api_web": "^1.5.0",
+    "framer-motion": "4",
+    "github-markdown-css": "^5.0.0",
     "next": "12.0.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-markdown": "^7.1.0",
+    "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "16.11.7",
